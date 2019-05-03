@@ -54,22 +54,22 @@ class Solution {
      */
     public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
         List<List<Integer>> list = new ArrayList<>();
-        bfs(list, root, true, 0);
+        bfs(list, root, 0);
         return list;
     }
 
-    public void bfs(List<List<Integer>> list,TreeNode root,boolean left, int level) {
+    public void bfs(List<List<Integer>> list,TreeNode root, int level) {
         if(root == null) return ;
         int size = list.size();
         if(size <= level) {
-            list.add(new LinkedList<Integer>());
+            list.add(new ArrayList<Integer>());
         }
-        if(left) {
-            ((LinkedList)(list.get(level))).addFirst(root.val);
+        if(level % 2 == 0) {
+            list.get(level).add(0,root.val);
         } else {
-            ((LinkedList)(list.get(level))).addLast(root.val);
+            list.get(level).add(root.val);
         }
-        bfs(list, root.right, !left, level + 1);
-        bfs(list, root.left, !left, level + 1);
+        bfs(list, root.right, level + 1);
+        bfs(list, root.left,  level + 1);
     }
 }
